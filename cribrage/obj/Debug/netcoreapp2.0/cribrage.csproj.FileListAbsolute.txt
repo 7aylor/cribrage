@@ -1,0 +1,10 @@
+C:\Users\Taylor\Desktop\Cribrage\cribrage\obj\Debug\netcoreapp2.0\cribrage.csprojAssemblyReference.cache
+C:\Users\Taylor\Desktop\Cribrage\cribrage\obj\Debug\netcoreapp2.0\cribrage.AssemblyInfoInputs.cache
+C:\Users\Taylor\Desktop\Cribrage\cribrage\obj\Debug\netcoreapp2.0\cribrage.AssemblyInfo.cs
+C:\Users\Taylor\Desktop\Cribrage\cribrage\bin\Debug\netcoreapp2.0\cribrage.deps.json
+C:\Users\Taylor\Desktop\Cribrage\cribrage\bin\Debug\netcoreapp2.0\cribrage.runtimeconfig.json
+C:\Users\Taylor\Desktop\Cribrage\cribrage\bin\Debug\netcoreapp2.0\cribrage.runtimeconfig.dev.json
+C:\Users\Taylor\Desktop\Cribrage\cribrage\bin\Debug\netcoreapp2.0\cribrage.dll
+C:\Users\Taylor\Desktop\Cribrage\cribrage\bin\Debug\netcoreapp2.0\cribrage.pdb
+C:\Users\Taylor\Desktop\Cribrage\cribrage\obj\Debug\netcoreapp2.0\cribrage.dll
+C:\Users\Taylor\Desktop\Cribrage\cribrage\obj\Debug\netcoreapp2.0\cribrage.pdb
