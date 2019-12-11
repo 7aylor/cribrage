@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Text;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
 namespace cribrage
@@ -14,38 +15,25 @@ namespace cribrage
         public Deck(CardType nobsCard)
         {
             Cards = new List<Card>();
+
+            int x = 0;
+            int y = 0;
+
             foreach(Suit suit in Enum.GetValues(typeof(Suit)))
             {
                 foreach(CardType card in Enum.GetValues(typeof(CardType)))
                 {
                     bool isNobs = card == nobsCard? true : false;
-                    Card c = new Card(suit, card, isNobs);
+                    Card c = new Card(suit, card, isNobs, x, y);
                     Cards.Add(c);
+                    x++;
+                    if(x > 12)
+                    {
+                        x = 0;
+                    }
                 }
+                y++;
             }
         }
-
     }
-
-    public class Card
-    {
-        public string Name { get; set; }
-        public CardType Type { get; set; }
-        public Suit Suit { get; set; }
-        public int Value { get; set; }
-        public bool GivesNobs { get; set; } = false;
-        public Texture2D Texture { get; set; }
-
-        public Card(Suit suit, CardType type, bool givesNobs)
-        {
-            this.Name = type.ToString();
-            this.Type = type;
-            this.Suit = suit;
-            Value = (int)type < 10 ? (int)type + 1 : (int)type;
-            this.GivesNobs = givesNobs;
-        }
-    }
-
-    public enum Suit { Spades, Clubs, Hearts, Diamonds }
-    public enum CardType { Ace, Two, Three, Four, Five, Six, Seven, Eight, Nine, Ten, Jack, Queen, King };
 }

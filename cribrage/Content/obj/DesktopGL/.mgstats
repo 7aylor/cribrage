@@ -1,2 +1,3 @@
 Source File,Dest File,Processor Type,Content Type,Source File Size,Dest File Size,Build Seconds
-"C:/Users/Taylor/Desktop/Cribrage/cribrage/Content/plain deck.png","C:/Users/Taylor/Desktop/Cribrage/cribrage/Content/bin/DesktopGL/plain deck.xnb","TextureProcessor","Texture2DContent",492486,3922005,0.2087805
+"C:/Users/7aylor/Desktop/gamdev/Monogame/Cribrage/cribrage/Content/plain deck.png","C:/Users/7aylor/Desktop/gamdev/Monogame/Cribrage/cribrage/Content/bin/DesktopGL/plain deck.xnb","TextureProcessor","Texture2DContent",492486,3922005,0.4339177
+"C:/Users/7aylor/Desktop/gamdev/Monogame/Cribrage/cribrage/Content/smallcards.gif","C:/Users/7aylor/Desktop/gamdev/Monogame/Cribrage/cribrage/Content/bin/DesktopGL/smallcards.xnb","TextureProcessor","Texture2DContent",9143,499285,0.0311023

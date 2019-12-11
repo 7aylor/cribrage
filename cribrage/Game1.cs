@@ -26,7 +26,7 @@ namespace cribrage
             deck = new Deck(CardType.Jack);
             foreach (Card card in deck.Cards)
             {
-                Debug.WriteLine(card.Name + " of " + card.Suit.ToString());
+                Debug.WriteLine(card.Name + " of " + card.Suit.ToString() + " : value - " + card.Value + " (" + card.SpriteX + ", " + card.SpriteY + ")");
             }
             base.Initialize();
         }
@@ -34,7 +34,7 @@ namespace cribrage
         protected override void LoadContent()
         {
             spriteBatch = new SpriteBatch(GraphicsDevice);
-            //deck = Content.Load<Texture2D>("plain deck");
+            deckSprite = Content.Load<Texture2D>("smallcards");
         }
 
         protected override void Update(GameTime gameTime)
@@ -47,13 +47,21 @@ namespace cribrage
 
         protected override void Draw(GameTime gameTime)
         {
-            GraphicsDevice.Clear(Color.CornflowerBlue);
+            GraphicsDevice.Clear(Color.DarkGreen);
 
             spriteBatch.Begin();
 
-            int y = 5;
+            foreach(var card in deck.Cards)
+            {
+                Rectangle cardRect = new Rectangle(card.SpriteX * Card.Width, card.SpriteY * Card.Height, Card.Width, Card.Height);
 
+                float scalar = 1f;
 
+                Rectangle destRect = new Rectangle((int)(cardRect.X * scalar) + (5 * card.SpriteX) + 5, (int)(cardRect.Y * scalar) + (5 * card.SpriteY) + 5, (int)(cardRect.Width * scalar), (int)(cardRect.Height * scalar));
+
+                //spriteBatch.Draw(deckSprite, new Vector2(card.SpriteX * Card.Width, card.SpriteY * Card.Height), new Rectangle(card.SpriteX * Card.Width, card.SpriteY * Card.Height, Card.Width, Card.Height), Color.White);
+                spriteBatch.Draw(deckSprite, destRect, cardRect, Color.White);
+            }
 
             spriteBatch.End();
 
