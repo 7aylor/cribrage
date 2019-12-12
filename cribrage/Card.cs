@@ -13,6 +13,7 @@ namespace cribrage
         public CardType Type { get; set; }
         public Suit Suit { get; set; }
         public int Value { get; set; }
+        public int Ordinal { get; set; } //value in suit (for runs)
         public bool GivesNobs { get; set; } = false;
         public int SpriteX { get; set; }
         public int SpriteY { get; set; }

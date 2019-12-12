@@ -4,7 +4,7 @@ using System.Text;
 
 namespace cribrage
 {
-    class Player
+    public class Player
     {
         public int Score { get; set; }
         public string Name { get; set; }

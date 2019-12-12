@@ -28,6 +28,8 @@ namespace cribrage
             {
                 Debug.WriteLine(card.Name + " of " + card.Suit.ToString() + " : value - " + card.Value + " (" + card.SpriteX + ", " + card.SpriteY + ")");
             }
+
+
             base.Initialize();
         }
 

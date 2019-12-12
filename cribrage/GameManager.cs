@@ -5,7 +5,7 @@ using System.Text;
 namespace cribrage
 {
     public enum GameState { None, Deal, Discard, Cut, Pegging, Counting }
-    class GameManager
+    public class GameManager
     {
         public GameState State { get; set; }
 
