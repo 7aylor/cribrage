@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using System.Collections.Generic;
 using System.Diagnostics;
 
 namespace cribrage
@@ -28,6 +29,20 @@ namespace cribrage
             {
                 Debug.WriteLine(card.Name + " of " + card.Suit.ToString() + " : value - " + card.Value + " (" + card.SpriteX + ", " + card.SpriteY + ")");
             }
+
+            Hand hand = new Hand();
+
+            hand.Cards = new List<Card>() {
+                new Card(Suit.Clubs, CardType.King),
+                new Card(Suit.Hearts, CardType.King),
+                new Card(Suit.Spades, CardType.Two),
+                new Card(Suit.Spades, CardType.Ten),
+                new Card(Suit.Diamonds, CardType.Seven)
+            };
+
+            hand.BuildSets();
+
+            hand.GetRuns();
 
 
             base.Initialize();

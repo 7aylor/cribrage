@@ -15,21 +15,43 @@ namespace cribrage
         public int Value { get; set; }
         public int Ordinal { get; set; } //value in suit (for runs)
         public bool GivesNobs { get; set; } = false;
-        public int SpriteX { get; set; }
-        public int SpriteY { get; set; }
+        public int SpriteX { get; set; } //
+        public int SpriteY { get; set; } //
+        public bool CanBePlayed { get; set; } //for pegging
+        public bool IsCutCard { get; set; } = false;
 
         public static int Width = 40;
         public static int Height = 60;
+
+        public Card(Suit suit, CardType type)
+        {
+            this.Name = type.ToString();
+            this.Type = type;
+            this.Suit = suit;
+            SetCardValue(type);
+            SetCardOrdinal(type);
+        }
 
         public Card(Suit suit, CardType type, bool givesNobs, int x, int y)
         {
             this.Name = type.ToString();
             this.Type = type;
             this.Suit = suit;
-            Value = (int)type < 10 ? (int)type + 1 : 10;
+            SetCardValue(type);
+            SetCardOrdinal(type);
             this.GivesNobs = givesNobs;
             SpriteX = x;
             SpriteY = y;
+        }
+
+        private void SetCardValue(CardType type)
+        {
+            Value = (int)type < 10 ? (int)type + 1 : 10;
+        }
+
+        private void SetCardOrdinal(CardType type)
+        {
+            Ordinal = (int)type;
         }
     }
 }
