@@ -23,6 +23,8 @@ namespace cribrage
         public static int Width = 40;
         public static int Height = 60;
 
+        public Card() { }
+
         public Card(Suit suit, CardType type)
         {
             this.Name = type.ToString();

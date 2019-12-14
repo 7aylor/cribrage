@@ -27,13 +27,16 @@ namespace cribrage
             IsCrib = isCrib;
         }
         
-        public void GetScore(Card cut)
+        public void GetScore(Card cut, CardType nobsCard)
         {
             cut.IsCutCard = true;
             Cards.Add(cut);
             BuildSets();
             Score += GetFifteens();
             Score += GetPairs();
+            Score += GetRuns();
+            Score += GetFlushes();
+            Score += GetNobs(nobsCard);
         }
 
         public void BuildSets()
@@ -187,20 +190,68 @@ namespace cribrage
             return sumOfThreeRuns;
         }
 
-        //public int GetFlushes()
-        //{
-            //if(!IsCrib)
-            //{
-            //    Suit suit = Cards[0].IsCutCard ? Cards[1].Suit : Cards[0].Suit;
-            //    for(int i = 0; i < Cards.Count; i++)
-            //    {
-            //        if (Cards[i].Suit != suit)
-            //            break;
-            //    }
-            //}
+        public int GetFlushes()
+        {
+            List<Card> OriginalHand = new List<Card>();
+            Card cutCard = new Card();
 
-            //return 0;
-        //}
+            foreach(Card c in Cards)
+            {
+                if (!c.IsCutCard)
+                    OriginalHand.Add(c);
+                else
+                    cutCard = c;
+            }
 
+            if (!IsCrib)
+            {
+                int score = 0;
+                if (OriginalHand[0].Suit == OriginalHand[1].Suit &&
+                   OriginalHand[1].Suit == OriginalHand[2].Suit &&
+                   OriginalHand[2].Suit == OriginalHand[3].Suit)
+                {
+                    score = 4;
+                    if(cutCard.Suit == OriginalHand[3].Suit)
+                    {
+                        score += 1;
+                    }
+                }
+
+                return score;
+            }
+            else
+            {
+                if(Cards[0].Suit == Cards[1].Suit &&
+                   Cards[1].Suit == Cards[2].Suit &&
+                   Cards[2].Suit == Cards[3].Suit &&
+                   Cards[3].Suit == Cards[4].Suit)
+                {
+                    return 5;
+                }
+            }
+
+            return 0;
+        }
+
+        public int GetNobs(CardType nobsType)
+        {
+            Card nobsCard = new Card();
+            Card cutCard = new Card();
+            foreach(Card c in Cards)
+            {
+                if (c.Type == nobsType)
+                    nobsCard = c;
+                if (c.IsCutCard)
+                    cutCard = c;
+            }
+
+            if(nobsCard.Ordinal > 0)
+            {
+                if (nobsCard.Suit == cutCard.Suit)
+                    return 1;
+            }
+
+            return 0;
+        }
     }
 }
