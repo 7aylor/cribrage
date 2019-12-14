@@ -11,10 +11,12 @@ namespace cribrage
     {
         public int Count { get; set; } = 52;
         public List<Card> Cards { get; set; }
+        public List<int> DealtCardIndexes { get; set; }
 
         public Deck(CardType nobsCard)
         {
             Cards = new List<Card>();
+            DealtCardIndexes = new List<int>();
 
             int x = 0;
             int y = 0;
@@ -34,6 +36,50 @@ namespace cribrage
                 }
                 y++;
             }
+        }
+
+        /// <summary>
+        /// Gets a random card from the deck that hasn't been used
+        /// </summary>
+        /// <returns>Random Card</returns>
+        public Card GetTopRandomCard()
+        {
+            Random rand = new Random();
+            int index = -1;
+
+            do
+            {
+                index = rand.Next(Count);
+            } while (DealtCardIndexes.Contains(index));
+
+            DealtCardIndexes.Add(index);
+
+            return Cards[index];
+        }
+
+        /// <summary>
+        /// Deals 6 cards to each player
+        /// </summary>
+        /// <param name="players">List of players</param>
+        public void Deal(List<Player> players, int count=6)
+        {
+            //TODO: if more than 2 players, this will need to be changed
+            for (int i = 0; i < count; i++)
+            {
+                foreach(Player p in players)
+                {
+                    p.Hand.Cards.Add(GetTopRandomCard());
+                }
+            }
+        }
+
+        /// <summary>
+        /// Really just clears the used cards so that when GetTopRandomCard 
+        /// is called, it has the full deck to look through
+        /// </summary>
+        public void Shuffle()
+        {
+            DealtCardIndexes.Clear();
         }
     }
 }

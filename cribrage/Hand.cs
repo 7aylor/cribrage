@@ -11,11 +11,17 @@ namespace cribrage
         public List<Card> Cards { get; set; }
         public int Score { get; set; }
         public bool IsCrib { get; set; }
+        public int CardDrawPosX { get; set; }
+        public int CardDrawPosY { get; set; }
 
+
+        //sets of unique card combinations in hand
         public Card[][] setOfTwos = new Card[10][];
         public Card[][] setOfThrees = new Card[10][];
         public Card[][] setOfFours = new Card[5][];
 
+        //sets of cards that make up scores
+        //TODO: may need to tweak these to display scoring breakdowns
         public List<Card[]> fifteens = new List<Card[]>();
         public List<Card[]> pairs = new List<Card[]>();
         public List<Card[]> runs = new List<Card[]>();
@@ -26,7 +32,27 @@ namespace cribrage
             Score = 0;
             IsCrib = isCrib;
         }
+
+        /// <summary>
+        /// Used to help estimate best possible hand before discarding
+        /// </summary>
+        /// <returns></returns>
+        public int GetScoreBeforeCut()
+        {
+            int score = 0;
+            score += GetFifteens();
+            score += GetPairs();
+            score += GetRuns();
+            score += GetFlushes();
+
+            return score;
+        }
         
+        /// <summary>
+        /// Gets the total score in the scoring round after a card has been cut
+        /// </summary>
+        /// <param name="cut"></param>
+        /// <param name="nobsCard"></param>
         public void GetScore(Card cut, CardType nobsCard)
         {
             cut.IsCutCard = true;
@@ -39,6 +65,10 @@ namespace cribrage
             Score += GetNobs(nobsCard);
         }
 
+        /// <summary>
+        /// Builds sets of unique cards for sets of two, three, and four 
+        /// to be used by scoring methods to determine scores
+        /// </summary>
         public void BuildSets()
         {
             //build sets of 2
@@ -90,6 +120,10 @@ namespace cribrage
             }
         }
 
+        /// <summary>
+        /// Get total score from fifteens in hand
+        /// </summary>
+        /// <returns></returns>
         public int GetFifteens()
         {
             int scoreFromFifteens = 0;
@@ -130,6 +164,10 @@ namespace cribrage
             return scoreFromFifteens;
         }
 
+        /// <summary>
+        /// Get total score from pairs in hand
+        /// </summary>
+        /// <returns></returns>
         public int GetPairs()
         {
             int scoreFromPairs = 0;
@@ -146,6 +184,10 @@ namespace cribrage
             return scoreFromPairs;
         }
 
+        /// <summary>
+        /// Get total score from runs in hand
+        /// </summary>
+        /// <returns></returns>
         public int GetRuns()
         {
 
@@ -190,6 +232,10 @@ namespace cribrage
             return sumOfThreeRuns;
         }
 
+        /// <summary>
+        /// Get total score from flushes in hand
+        /// </summary>
+        /// <returns></returns>
         public int GetFlushes()
         {
             List<Card> OriginalHand = new List<Card>();
@@ -233,6 +279,11 @@ namespace cribrage
             return 0;
         }
 
+        /// <summary>
+        /// Get score from nobs in hand
+        /// </summary>
+        /// <param name="nobsType"></param>
+        /// <returns></returns>
         public int GetNobs(CardType nobsType)
         {
             Card nobsCard = new Card();
@@ -252,6 +303,14 @@ namespace cribrage
             }
 
             return 0;
+        }
+
+        /// <summary>
+        /// Empties the hand of any cards
+        /// </summary>
+        public void Reset()
+        {
+            Cards.Clear();
         }
     }
 }

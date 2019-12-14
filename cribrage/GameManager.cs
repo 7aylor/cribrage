@@ -5,10 +5,15 @@ using System.Text;
 namespace cribrage
 {
     public enum GameState { None, Deal, Discard, Cut, Pegging, Counting }
+
     public class GameManager
     {
         public GameState State { get; set; }
 
-        public Card Cut { get; set; }
+        public GameManager()
+        {
+            State = GameState.None;
+        }
+        
     }
 }

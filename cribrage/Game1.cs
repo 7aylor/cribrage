@@ -11,6 +11,10 @@ namespace cribrage
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
         Deck deck;
+        Player p1;
+        Player p2;
+        List<Player> players;
+
 
         //SpriteFont defaultFont;
         Texture2D deckSprite;
@@ -25,25 +29,15 @@ namespace cribrage
         protected override void Initialize()
         {
             deck = new Deck(CardType.Jack);
-            foreach (Card card in deck.Cards)
-            {
-                Debug.WriteLine(card.Name + " of " + card.Suit.ToString() + " : value - " + card.Value + " (" + card.SpriteX + ", " + card.SpriteY + ")");
-            }
+            p1 = new Player();
+            p2 = new Player();
+            players = new List<Player>() { p1, p2 };
 
-            Hand hand = new Hand();
-
-            hand.Cards = new List<Card>() {
-                new Card(Suit.Clubs, CardType.King),
-                new Card(Suit.Hearts, CardType.King),
-                new Card(Suit.Spades, CardType.Two),
-                new Card(Suit.Spades, CardType.Ten),
-                new Card(Suit.Diamonds, CardType.Seven)
-            };
-
-            hand.BuildSets();
-
-            hand.GetRuns();
-
+            p1.Hand.CardDrawPosX = 275;
+            p1.Hand.CardDrawPosY = 400;
+            p2.Hand.CardDrawPosX = 275;
+            p2.Hand.CardDrawPosY = 20;
+            deck.Deal(players);
 
             base.Initialize();
         }
@@ -68,16 +62,43 @@ namespace cribrage
 
             spriteBatch.Begin();
 
-            foreach(var card in deck.Cards)
+            //draw all cards
+            //foreach(var card in deck.Cards)
+            //{
+            //    Rectangle cardRect = new Rectangle(card.SpriteX * Card.Width, card.SpriteY * Card.Height, Card.Width, Card.Height);
+
+            //    float scalar = 1f;
+
+            //    Rectangle destRect = new Rectangle((int)(cardRect.X * scalar) + (5 * card.SpriteX) + 5, (int)(cardRect.Y * scalar) + (5 * card.SpriteY) + 5, (int)(cardRect.Width * scalar), (int)(cardRect.Height * scalar));
+
+            //    //spriteBatch.Draw(deckSprite, new Vector2(card.SpriteX * Card.Width, card.SpriteY * Card.Height), new Rectangle(card.SpriteX * Card.Width, card.SpriteY * Card.Height, Card.Width, Card.Height), Color.White);
+            //    spriteBatch.Draw(deckSprite, destRect, cardRect, Color.White);
+            //}
+
+            int count = 0;
+            foreach(Card card in p1.Hand.Cards)
             {
                 Rectangle cardRect = new Rectangle(card.SpriteX * Card.Width, card.SpriteY * Card.Height, Card.Width, Card.Height);
 
                 float scalar = 1f;
 
-                Rectangle destRect = new Rectangle((int)(cardRect.X * scalar) + (5 * card.SpriteX) + 5, (int)(cardRect.Y * scalar) + (5 * card.SpriteY) + 5, (int)(cardRect.Width * scalar), (int)(cardRect.Height * scalar));
+                Rectangle destRect = new Rectangle(p1.Hand.CardDrawPosX + (Card.Width * count) + 5, p1.Hand.CardDrawPosY, (int)(cardRect.Width * scalar), (int)(cardRect.Height * scalar));
 
-                //spriteBatch.Draw(deckSprite, new Vector2(card.SpriteX * Card.Width, card.SpriteY * Card.Height), new Rectangle(card.SpriteX * Card.Width, card.SpriteY * Card.Height, Card.Width, Card.Height), Color.White);
                 spriteBatch.Draw(deckSprite, destRect, cardRect, Color.White);
+                count++;
+            }
+
+            count = 0;
+            foreach (Card card in p2.Hand.Cards)
+            {
+                Rectangle cardRect = new Rectangle(card.SpriteX * Card.Width, card.SpriteY * Card.Height, Card.Width, Card.Height);
+
+                float scalar = 1f;
+
+                Rectangle destRect = new Rectangle(p2.Hand.CardDrawPosX + (Card.Width * count) + 5, p2.Hand.CardDrawPosY, (int)(cardRect.Width * scalar), (int)(cardRect.Height * scalar));
+
+                spriteBatch.Draw(deckSprite, destRect, cardRect, Color.White);
+                count++;
             }
 
             spriteBatch.End();
