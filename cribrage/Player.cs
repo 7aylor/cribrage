@@ -10,15 +10,18 @@ namespace cribrage
         public string Name { get; set; }
         public Hand Hand { get; set; }
 
+        public int NameY { get; set; } //position of name to be drawn to screen
+
         public Player()
         {
             Hand = new Hand();
         }
 
-        public Player(string name)
+        public Player(string name, int y)
         {
             Hand = new Hand();
             Name = name;
+            NameY = y;
         }
 
     }

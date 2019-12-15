@@ -12,11 +12,17 @@ namespace cribrage
         public int Count { get; set; } = 52;
         public List<Card> Cards { get; set; }
         public List<int> DealtCardIndexes { get; set; }
+        public int DrawX { get; set; }
+        public int DrawY { get; set; }
 
-        public Deck(CardType nobsCard)
+
+        public Deck(CardType nobsCard, int drawX, int drawY)
         {
             Cards = new List<Card>();
             DealtCardIndexes = new List<int>();
+
+            DrawX = drawX;
+            DrawY = drawY;
 
             int x = 0;
             int y = 0;
@@ -79,7 +85,16 @@ namespace cribrage
         /// </summary>
         public void Shuffle()
         {
+            foreach(Card c in Cards)
+            {
+                c.IsCutCard = false;
+            }
             DealtCardIndexes.Clear();
+        }
+
+        public Card GetCard(CardType type, Suit suit)
+        {
+            return Cards.Find(c => c.Type == type && c.Suit == suit);
         }
     }
 }

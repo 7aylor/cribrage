@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Taylor\\Desktop\\Cribrage\\cribrage\\cribrage.csproj": {}
+    "C:\\Users\\Taylor\\Desktop\\Gamedev\\Monogame\\Cribrage\\cribrage\\cribrage.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Taylor\\Desktop\\Cribrage\\cribrage\\cribrage.csproj": {
+    "C:\\Users\\Taylor\\Desktop\\Gamedev\\Monogame\\Cribrage\\cribrage\\cribrage.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Taylor\\Desktop\\Cribrage\\cribrage\\cribrage.csproj",
+        "projectUniqueName": "C:\\Users\\Taylor\\Desktop\\Gamedev\\Monogame\\Cribrage\\cribrage\\cribrage.csproj",
         "projectName": "cribrage",
-        "projectPath": "C:\\Users\\Taylor\\Desktop\\Cribrage\\cribrage\\cribrage.csproj",
+        "projectPath": "C:\\Users\\Taylor\\Desktop\\Gamedev\\Monogame\\Cribrage\\cribrage\\cribrage.csproj",
         "packagesPath": "C:\\Users\\Taylor\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Taylor\\Desktop\\Cribrage\\cribrage\\obj\\",
+        "outputPath": "C:\\Users\\Taylor\\Desktop\\Gamedev\\Monogame\\Cribrage\\cribrage\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"

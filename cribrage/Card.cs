@@ -15,8 +15,10 @@ namespace cribrage
         public int Value { get; set; }
         public int Ordinal { get; set; } //value in suit (for runs)
         public bool GivesNobs { get; set; } = false;
-        public int SpriteX { get; set; } //
-        public int SpriteY { get; set; } //
+        public int SpriteX { get; set; } //position x in the sprite map
+        public int SpriteY { get; set; } //position y in the sprite map
+        public int DrawX { get; set; }
+        public int DrawY { get; set; }
         public bool CanBePlayed { get; set; } //for pegging
         public bool IsCutCard { get; set; } = false;
 

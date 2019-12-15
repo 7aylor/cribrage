@@ -482,6 +482,78 @@ namespace Tests
         }
 
         [Test]
+        public void Nobs_ScoresCorrectly1()
+        {
+            hand.Cards = new List<Card>() {
+                new Card(Suit.Hearts, CardType.Ace),
+                new Card(Suit.Spades, CardType.Jack),
+                new Card(Suit.Hearts, CardType.Jack),
+                new Card(Suit.Spades, CardType.Queen),
+                new Card(Suit.Spades, CardType.Three)
+            };
+
+            hand.Cards[4].IsCutCard = true;
+
+            int score = hand.GetNobs(CardType.Jack);
+
+            Assert.AreEqual(score, 1);
+        }
+
+        [Test]
+        public void NobsThreeNobsCards_ScoresCorrectly()
+        {
+            hand.Cards = new List<Card>() {
+                new Card(Suit.Hearts, CardType.Ace),
+                new Card(Suit.Diamonds, CardType.Jack),
+                new Card(Suit.Hearts, CardType.Jack),
+                new Card(Suit.Spades, CardType.Jack),
+                new Card(Suit.Spades, CardType.Three)
+            };
+
+            hand.Cards[4].IsCutCard = true;
+
+            int score = hand.GetNobs(CardType.Jack);
+
+            Assert.AreEqual(score, 1);
+        }
+
+        [Test]
+        public void NobsFourNobsCards_ScoresCorrectly()
+        {
+            hand.Cards = new List<Card>() {
+                new Card(Suit.Clubs, CardType.Jack),
+                new Card(Suit.Diamonds, CardType.Jack),
+                new Card(Suit.Hearts, CardType.Jack),
+                new Card(Suit.Spades, CardType.Jack),
+                new Card(Suit.Spades, CardType.Three)
+            };
+
+            hand.Cards[4].IsCutCard = true;
+
+            int score = hand.GetNobs(CardType.Jack);
+
+            Assert.AreEqual(score, 1);
+        }
+
+        [Test]
+        public void NoNobsThreeNobsCards_ScoresCorrectly()
+        {
+            hand.Cards = new List<Card>() {
+                new Card(Suit.Hearts, CardType.Ace),
+                new Card(Suit.Diamonds, CardType.Jack),
+                new Card(Suit.Hearts, CardType.Jack),
+                new Card(Suit.Spades, CardType.Jack),
+                new Card(Suit.Clubs, CardType.Three)
+            };
+
+            hand.Cards[4].IsCutCard = true;
+
+            int score = hand.GetNobs(CardType.Jack);
+
+            Assert.AreEqual(score, 0);
+        }
+
+        [Test]
         public void NoNobs_ScoresCorrectly()
         {
             hand.Cards = new List<Card>() {
@@ -490,6 +562,24 @@ namespace Tests
                 new Card(Suit.Diamonds, CardType.Jack),
                 new Card(Suit.Diamonds, CardType.King),
                 new Card(Suit.Clubs, CardType.Eight)
+            };
+
+            hand.Cards[4].IsCutCard = true;
+
+            int score = hand.GetNobs(CardType.Jack);
+
+            Assert.AreEqual(score, 0);
+        }
+
+        [Test]
+        public void NoNobsCutNobsCard_ScoresCorrectly()
+        {
+            hand.Cards = new List<Card>() {
+                new Card(Suit.Diamonds, CardType.Ace),
+                new Card(Suit.Diamonds, CardType.Two),
+                new Card(Suit.Diamonds, CardType.Jack),
+                new Card(Suit.Diamonds, CardType.King),
+                new Card(Suit.Clubs, CardType.Jack)
             };
 
             hand.Cards[4].IsCutCard = true;

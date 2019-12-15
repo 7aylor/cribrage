@@ -53,8 +53,9 @@ namespace cribrage
         /// </summary>
         /// <param name="cut"></param>
         /// <param name="nobsCard"></param>
-        public void GetScore(Card cut, CardType nobsCard)
+        public void GetScore(Card cut, CardType nobsCard = CardType.Jack)
         {
+            Score = 0;
             cut.IsCutCard = true;
             Cards.Add(cut);
             BuildSets();
@@ -63,6 +64,7 @@ namespace cribrage
             Score += GetRuns();
             Score += GetFlushes();
             Score += GetNobs(nobsCard);
+            Cards.Remove(cut);
         }
 
         /// <summary>
@@ -286,20 +288,23 @@ namespace cribrage
         /// <returns></returns>
         public int GetNobs(CardType nobsType)
         {
-            Card nobsCard = new Card();
+            List<Card> nobsCards = new List<Card>();
             Card cutCard = new Card();
             foreach(Card c in Cards)
             {
                 if (c.Type == nobsType)
-                    nobsCard = c;
+                    nobsCards.Add(c);
                 if (c.IsCutCard)
                     cutCard = c;
             }
 
-            if(nobsCard.Ordinal > 0)
+            foreach(Card nc in nobsCards)
             {
-                if (nobsCard.Suit == cutCard.Suit)
-                    return 1;
+                if(nc.Ordinal > 0 && nc.Type != cutCard.Type)
+                {
+                    if (nc.Suit == cutCard.Suit)
+                        return 1;
+                }
             }
 
             return 0;
