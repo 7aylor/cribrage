@@ -21,6 +21,7 @@ namespace cribrage
         MouseState state;
         GameManager gameManager;
         double delayBetweenCards = 0;
+        double cutDelay = 0;
         int spaceBetweenCards;
         List<Player> players;
         Player playerToBeDealtTo;
@@ -132,7 +133,8 @@ namespace cribrage
                     HandleDiscard();
                     break;
                 case GameState.Cut:
-
+                    cutDelay += gameTime.ElapsedGameTime.TotalSeconds;
+                    HandleCut();
                     break;
                 case GameState.Pegging:
 
@@ -150,6 +152,41 @@ namespace cribrage
 
 
             base.Update(gameTime);
+        }
+
+        private void HandleCut()
+        {
+            MouseState prevState = state;
+            state = Mouse.GetState();
+
+            if(!p1.GetsCrib)
+            {
+                if(actionButton.IsMouseHovering(state.Position.ToVector2()))
+                {
+                    if(state.LeftButton == ButtonState.Pressed && prevState.LeftButton == ButtonState.Released)
+                    {
+                        Cut();
+                    }
+                }
+            }
+            else
+            {
+                if(cutDelay > 2)
+                {
+                    Cut();
+                }
+            }
+        }
+
+        private void Cut()
+        {
+            cut = deck.GetTopRandomCard();
+            cut.DrawX = (graphics.GraphicsDevice.Viewport.Width - Card.Width) / 2;
+            cut.DrawY = (graphics.GraphicsDevice.Viewport.Height - Card.Height) / 2;
+            cutDelay = 0;
+            Mouse.SetCursor(MouseCursor.Arrow);
+            Console.WriteLine("Cut " + cut.Name);
+            gameManager.GoToNextPhase();
         }
 
         private void HandleDiscard()
@@ -209,16 +246,9 @@ namespace cribrage
                         p1.Hand.Cards.Remove(p1discards[1]);
                     }
 
-                    for (int i = 0; i < p1.Hand.Cards.Count; i++)
+                    foreach (Player p in players)
                     {
-                        Card c = p1.Hand.Cards[i];
-                        c.DrawX = c.DrawX = p1.Hand.CardDrawPosX +
-                        ((Card.Width + spaceBetweenCards) * i);
-                    }
-
-                    foreach(Player p in players)
-                    {
-                        if(p.GetsCrib == true)
+                        if (p.GetsCrib == true)
                         {
                             p.Crib = new Hand();
                             p.Crib.Cards.Add(p1discards[0]);
@@ -231,11 +261,26 @@ namespace cribrage
                             Console.WriteLine(p2.Name + " discarded " + p.Crib.Cards[0].Name + " to " + p.Name + "'s crib");
                             Console.WriteLine(p2.Name + " discarded " + p.Crib.Cards[1].Name + " to " + p.Name + "'s crib");
                         }
+
+                        p.Hand.CardDrawPosX = (graphics.GraphicsDevice.Viewport.Width - ((Card.Width + spaceBetweenCards) * 4)) / 2;
+                        UpdatePlayerCardPositions(p1);
                     }
 
                     gameManager.GoToNextPhase();
                     Mouse.SetCursor(MouseCursor.Arrow);
+
+
                 }
+            }
+        }
+
+        private void UpdatePlayerCardPositions(Player p)
+        {
+            for (int i = 0; i < p.Hand.Cards.Count; i++)
+            {
+                Card c = p.Hand.Cards[i];
+                c.DrawX = c.DrawX = p.Hand.CardDrawPosX +
+                ((Card.Width + spaceBetweenCards) * i);
             }
         }
 
@@ -243,7 +288,7 @@ namespace cribrage
         {
             aiDiscards.Add(p2.Hand.Cards[rng.Next(6)]);
             p2.Hand.Cards.Remove(aiDiscards[0]);
-            aiDiscards.Add(p2.Hand.Cards[rng.Next(6)]);
+            aiDiscards.Add(p2.Hand.Cards[rng.Next(5)]);
             p2.Hand.Cards.Remove(aiDiscards[1]);
         }
 
@@ -325,6 +370,9 @@ namespace cribrage
             if ((int)gameManager.State > 1 && (int)gameManager.State < 5)
                 DrawCribPile();
 
+            if (cut != null)
+                DrawCutCard();
+
             switch (gameManager.State)
             {
                 case GameState.Deal:
@@ -338,7 +386,8 @@ namespace cribrage
                     break;
                 case GameState.Cut:
                     actionButton.Text = "Cut";
-                    DrawActionButton();
+                    if(!p1.GetsCrib)
+                        DrawActionButton();
                     break;
                 case GameState.Pegging:
 
