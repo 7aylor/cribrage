@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Xna.Framework;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -21,6 +22,7 @@ namespace cribrage
         public int DrawY { get; set; }
         public bool CanBePlayed { get; set; } //for pegging
         public bool IsCutCard { get; set; } = false;
+        public bool IsSelected { get; set; }
 
         public static int Width = 40;
         public static int Height = 60;
@@ -38,9 +40,9 @@ namespace cribrage
 
         public Card(Suit suit, CardType type, bool givesNobs, int x, int y)
         {
-            this.Name = type.ToString();
             this.Type = type;
             this.Suit = suit;
+            this.Name = type.ToString() + " of " + suit.ToString();
             SetCardValue(type);
             SetCardOrdinal(type);
             this.GivesNobs = givesNobs;
@@ -56,6 +58,18 @@ namespace cribrage
         private void SetCardOrdinal(CardType type)
         {
             Ordinal = (int)type;
+        }
+
+        public bool IsMouseHovering(Vector2 mPos)
+        {
+            if(mPos.X >= DrawX &&
+               mPos.X <= DrawX + Width &&
+               mPos.Y >= DrawY &&
+               mPos.Y <= DrawY + Height)
+            {
+                return true;
+            }
+            return false;
         }
     }
 }

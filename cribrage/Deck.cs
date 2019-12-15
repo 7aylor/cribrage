@@ -14,15 +14,16 @@ namespace cribrage
         public List<int> DealtCardIndexes { get; set; }
         public int DrawX { get; set; }
         public int DrawY { get; set; }
+        public bool IsDealing { get; set; }
+        public double TimeBetweenCardsDealt { get; set; }
 
-
-        public Deck(CardType nobsCard, int drawX, int drawY)
+        public Deck(CardType nobsCard, int drawX, int drawY, double time)
         {
             Cards = new List<Card>();
             DealtCardIndexes = new List<int>();
-
             DrawX = drawX;
             DrawY = drawY;
+            TimeBetweenCardsDealt = time;
 
             int x = 0;
             int y = 0;
