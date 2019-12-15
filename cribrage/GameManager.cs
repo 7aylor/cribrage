@@ -15,14 +15,19 @@ namespace cribrage
         public GameManager(double wt=3)
         {
             State = GameState.Deal;
+            Console.WriteLine("-------------");
+            Console.WriteLine("Game State: " + State.ToString());
+            Console.WriteLine("-------------");
             WaitTime = wt;
         }
-
 
         public void GoToNextPhase()
         {
             State = State == GameState.CountingCrib? GameState.Deal : State + 1;
             PhaseDone = false;
+            Console.WriteLine("-------------");
+            Console.WriteLine("Game State: " + State.ToString());
+            Console.WriteLine("-------------");
         }
         
     }

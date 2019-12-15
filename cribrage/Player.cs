@@ -9,8 +9,9 @@ namespace cribrage
         public int TotalScore { get; set; } = 0;
         public string Name { get; set; }
         public Hand Hand { get; set; }
-
+        public Hand Crib { get; set; }
         public int NameY { get; set; } //position of name to be drawn to screen
+        public bool GetsCrib { get; set; } = false;
 
         public Player()
         {

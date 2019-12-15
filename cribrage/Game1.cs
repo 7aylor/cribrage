@@ -25,12 +25,16 @@ namespace cribrage
         List<Player> players;
         Player playerToBeDealtTo;
         int playerToBeDealtToIndex;
+        Button actionButton;
+        Random rng;
 
         SpriteFont defaultFont;
-        Texture2D deckSprite;
-        Texture2D backOfCard;
+        SpriteFont actionButtonFont;
+        Texture2D deckTexture;
+        Texture2D backOfCardTexture;
         Texture2D pixel;
-        Texture2D discardBtn;
+        Texture2D actionButtonTexture;
+        Texture2D cribStarTexture;
 
 
         public Game1()
@@ -42,6 +46,7 @@ namespace cribrage
 
         protected override void Initialize()
         {
+            rng = new Random();
             spaceBetweenCards = 5;
             deck = new Deck(CardType.Jack, spaceBetweenCards * 2, (graphics.GraphicsDevice.Viewport.Height - Card.Height) / 2, 0.1);
             p1 = new Player("Player1", graphics.GraphicsDevice.Viewport.Height - 18);
@@ -51,6 +56,8 @@ namespace cribrage
             gameManager = new GameManager();
             playerToBeDealtTo = players[0];
             playerToBeDealtToIndex = 0;
+
+            players[rng.Next(players.Count)].GetsCrib = true;
 
             p1.Hand.CardDrawPosX = (graphics.GraphicsDevice.Viewport.Width - ((Card.Width + spaceBetweenCards) * 6)) / 2;
             p1.Hand.CardDrawPosY = 400;
@@ -77,10 +84,15 @@ namespace cribrage
         protected override void LoadContent()
         {
             spriteBatch = new SpriteBatch(GraphicsDevice);
-            deckSprite = Content.Load<Texture2D>("smallcards");
-            backOfCard = Content.Load<Texture2D>("cardbacksmall");
-            discardBtn = Content.Load<Texture2D>("discardbtn");
+            deckTexture = Content.Load<Texture2D>("smallcards");
+            backOfCardTexture = Content.Load<Texture2D>("cardbacksmall");
+            actionButtonTexture = Content.Load<Texture2D>("actionbutton");
+            cribStarTexture = Content.Load<Texture2D>("cribstarsmall");
             defaultFont = Content.Load<SpriteFont>("default");
+            actionButtonFont = Content.Load<SpriteFont>("actionbuttonfont");
+
+            actionButton = new Button("Deal", graphics.GraphicsDevice.Viewport.Width - actionButtonTexture.Width - 5, graphics.GraphicsDevice.Viewport.Height - actionButtonTexture.Height - 5, Color.White, actionButtonTexture);
+
 
             pixel = new Texture2D(GraphicsDevice, 1, 1);
             pixel.SetData<Color>(new Color[] { Color.White });
@@ -144,10 +156,12 @@ namespace cribrage
         {
             MouseState prevState = state;
             state = Mouse.GetState();
+            Mouse.SetCursor(MouseCursor.Arrow);
 
             highlightedCard = null;
 
             int numSelected = p1.Hand.Cards.Where(x => x.IsSelected).Count();
+            actionButton.Highlighted = actionButton.IsMouseHovering(state.Position.ToVector2());
 
             foreach (Card c in p1.Hand.Cards)
             {
@@ -167,6 +181,70 @@ namespace cribrage
                     }
                 }
             }
+
+            if(actionButton.Highlighted)
+            {
+                actionButton.Color = Color.LightGray;
+                Mouse.SetCursor(MouseCursor.Hand);
+
+                if(state.LeftButton == ButtonState.Pressed && prevState.LeftButton == ButtonState.Released)
+                {
+                    List<Card> p1discards = new List<Card>();
+                    List<Card> p2discards = new List<Card>();
+
+                    foreach (Card c in p1.Hand.Cards)
+                    {
+                        if (c.IsSelected)
+                        {
+                            p1discards.Add(c);
+                        }
+                    }
+
+                    //TODO: Insert some AI logic in here, for now, it's just random
+                    HandleAiDiscard(p2discards);
+
+                    if (p1discards.Count == 2)
+                    {
+                        p1.Hand.Cards.Remove(p1discards[0]);
+                        p1.Hand.Cards.Remove(p1discards[1]);
+                    }
+
+                    for (int i = 0; i < p1.Hand.Cards.Count; i++)
+                    {
+                        Card c = p1.Hand.Cards[i];
+                        c.DrawX = c.DrawX = p1.Hand.CardDrawPosX +
+                        ((Card.Width + spaceBetweenCards) * i);
+                    }
+
+                    foreach(Player p in players)
+                    {
+                        if(p.GetsCrib == true)
+                        {
+                            p.Crib = new Hand();
+                            p.Crib.Cards.Add(p1discards[0]);
+                            p.Crib.Cards.Add(p1discards[1]);
+                            p.Crib.Cards.Add(p2discards[0]);
+                            p.Crib.Cards.Add(p2discards[1]);
+
+                            Console.WriteLine(p1.Name + " discarded " + p.Crib.Cards[0].Name + " to " + p.Name + "'s crib");
+                            Console.WriteLine(p1.Name + " discarded " + p.Crib.Cards[1].Name + " to " + p.Name + "'s crib");
+                            Console.WriteLine(p2.Name + " discarded " + p.Crib.Cards[0].Name + " to " + p.Name + "'s crib");
+                            Console.WriteLine(p2.Name + " discarded " + p.Crib.Cards[1].Name + " to " + p.Name + "'s crib");
+                        }
+                    }
+
+                    gameManager.GoToNextPhase();
+                    Mouse.SetCursor(MouseCursor.Arrow);
+                }
+            }
+        }
+
+        private void HandleAiDiscard(List<Card> aiDiscards)
+        {
+            aiDiscards.Add(p2.Hand.Cards[rng.Next(6)]);
+            p2.Hand.Cards.Remove(aiDiscards[0]);
+            aiDiscards.Add(p2.Hand.Cards[rng.Next(6)]);
+            p2.Hand.Cards.Remove(aiDiscards[1]);
         }
 
         private void HandleDeal()
@@ -178,6 +256,8 @@ namespace cribrage
                     delayBetweenCards = 0;
                     Card dealtCard = deck.GetTopRandomCard();
                     playerToBeDealtTo.Hand.Cards.Add(dealtCard);
+
+                    Console.WriteLine("Dealt " + dealtCard.Name + " to " + playerToBeDealtTo.Name);
 
                     dealtCard.DrawX = playerToBeDealtTo.Hand.CardDrawPosX + 
                         ((Card.Width + spaceBetweenCards) *     
@@ -204,7 +284,15 @@ namespace cribrage
             }
             else
             {
-                deck.IsDealing = true;
+                MouseState prevState = state;
+                state = Mouse.GetState();
+                if(actionButton.IsMouseHovering(state.Position.ToVector2()))
+                {
+                    if(state.LeftButton == ButtonState.Pressed && prevState.LeftButton == ButtonState.Released)
+                    {
+                        deck.IsDealing = true;
+                    }
+                }
             }
         }
 
@@ -234,16 +322,23 @@ namespace cribrage
             DrawPlayerHand(p1);
             DrawPlayerHandHidden(p2);
 
+            if ((int)gameManager.State > 1 && (int)gameManager.State < 5)
+                DrawCribPile();
 
             switch (gameManager.State)
             {
                 case GameState.Deal:
+                    actionButton.Text = "Deal";
+                    if (!deck.IsDealing)
+                        DrawActionButton();
                     break;
                 case GameState.Discard:
+                    actionButton.Text = "Discard";
                     HandleDiscardDraw();
                     break;
                 case GameState.Cut:
-
+                    actionButton.Text = "Cut";
+                    DrawActionButton();
                     break;
                 case GameState.Pegging:
 
@@ -269,6 +364,24 @@ namespace cribrage
             base.Draw(gameTime);
         }
 
+        private void DrawCribPile()
+        {
+            Player cribPlayer = new Player() ;
+            foreach(Player p in players)
+            {
+                if (p.GetsCrib)
+                    cribPlayer = p;
+            }
+
+            if(cribPlayer.Name != "")
+            {
+                for(int i = 0; i < cribPlayer.Crib.Cards.Count; i++)
+                {
+                    spriteBatch.Draw(backOfCardTexture, new Vector2(spaceBetweenCards * (i + 1), cribPlayer.Hand.CardDrawPosY), Color.White);
+                }
+            }
+        }
+
         private void HandleDiscardDraw()
         {
             foreach (Card c in p1.Hand.Cards)
@@ -288,9 +401,16 @@ namespace cribrage
             
             if(p1.Hand.Cards.Where(x => x.IsSelected).Count() == 2)
             {
-                Vector2 pos = new Vector2(graphics.GraphicsDevice.Viewport.Width - discardBtn.Width - 5, graphics.GraphicsDevice.Viewport.Height - discardBtn.Height - 5);
-                spriteBatch.Draw(discardBtn, pos, Color.White);
+                DrawActionButton();
             }
+        }
+
+        private void DrawActionButton()
+        {
+            Vector2 pos = new Vector2(actionButton.DrawX, actionButton.DrawY);
+            Vector2 textPos = new Vector2((actionButton.DrawX + (actionButton.Texture.Width / 2) -  ((actionButtonFont.MeasureString(actionButton.Text).X) / 2)), (actionButton.DrawY + (actionButton.Texture.Height / 2) - ((actionButtonFont.MeasureString(actionButton.Text).Y) / 2)));
+            spriteBatch.Draw(actionButton.Texture, pos, actionButton.Color);
+            spriteBatch.DrawString(actionButtonFont, actionButton.Text, textPos, actionButton.Color);
         }
 
         private void HightlightCard(Card card, Color color, int lineWidth)
@@ -311,7 +431,7 @@ namespace cribrage
         {
             Rectangle cutRect = new Rectangle(cut.SpriteX * Card.Width, cut.SpriteY * Card.Height, Card.Width, Card.Height);
             Rectangle cutDestRect = new Rectangle(cut.DrawX, cut.DrawY, (int)(cutRect.Width * spriteScalar), (int)(cutRect.Height * spriteScalar));
-            spriteBatch.Draw(deckSprite, cutDestRect, cutRect, Color.White);
+            spriteBatch.Draw(deckTexture, cutDestRect, cutRect, Color.White);
         }
 
         private void DrawPlayerScore(Player p)
@@ -321,7 +441,21 @@ namespace cribrage
 
         private void DrawPlayerNames(Player p)
         {
-            spriteBatch.DrawString(defaultFont, p.Name, new Vector2((graphics.GraphicsDevice.Viewport.Width - Card.Width) / 2, p.NameY), Color.White);
+            //string text = p.Name + (p.GetsCrib? " - Crib" : "");
+            int drawX = (int)(graphics.GraphicsDevice.Viewport.Width - defaultFont.MeasureString(p.Name).X);
+
+            Vector2 pos = new Vector2(drawX / 2, p.NameY);
+
+            if(p.GetsCrib)
+            {
+                float scalar = defaultFont.MeasureString(p.Name).Y / cribStarTexture.Height;
+                Rectangle rect = new Rectangle(0, 0, cribStarTexture.Width, cribStarTexture.Height);
+                Rectangle destRect = new Rectangle((drawX / 2) - (int)(cribStarTexture.Width * scalar) - 2, p.NameY - 2, (int)(cribStarTexture.Width * scalar), (int)(cribStarTexture.Height * scalar));
+
+                spriteBatch.Draw(cribStarTexture, destRect, rect, Color.White);
+            }
+
+            spriteBatch.DrawString(defaultFont, p.Name, pos, Color.White);
         }
 
         private void DrawPlayerHand(Player p)
@@ -331,7 +465,7 @@ namespace cribrage
             {
                 Rectangle cardRect = new Rectangle(card.SpriteX * Card.Width, card.SpriteY * Card.Height, Card.Width, Card.Height);
                 Rectangle destRect = new Rectangle(card.DrawX, card.DrawY, (int)(cardRect.Width * spriteScalar), (int)(cardRect.Height * spriteScalar));
-                spriteBatch.Draw(deckSprite, destRect, cardRect, Color.White);
+                spriteBatch.Draw(deckTexture, destRect, cardRect, Color.White);
                 count++;
             }
         }
@@ -342,14 +476,14 @@ namespace cribrage
             foreach (Card card in p.Hand.Cards)
             {
                 Vector2 pos = new Vector2(p.Hand.CardDrawPosX + ((Card.Width + spaceBetweenCards) * count), p.Hand.CardDrawPosY);
-                spriteBatch.Draw(backOfCard, pos, Color.White);
+                spriteBatch.Draw(backOfCardTexture, pos, Color.White);
                 count++;
             }
         }
 
         private void DrawDeck()
         {
-            spriteBatch.Draw(backOfCard, new Vector2(deck.DrawX, deck.DrawY), Color.White);
+            spriteBatch.Draw(backOfCardTexture, new Vector2(deck.DrawX, deck.DrawY), Color.White);
         }
     }
 }

@@ -38,3 +38,6 @@ C:\Users\Taylor\Desktop\Gamedev\Monogame\Cribrage\cribrage\bin\Debug\netcoreapp2
 C:\Users\7aylor\Desktop\gamdev\Monogame\Cribrage\cribrage\bin\Debug\netcoreapp2.0\Content\cardbacksmall.xnb
 C:\Users\7aylor\Desktop\gamdev\Monogame\Cribrage\cribrage\bin\Debug\netcoreapp2.0\Content\default.xnb
 C:\Users\7aylor\Desktop\gamdev\Monogame\Cribrage\cribrage\bin\Debug\netcoreapp2.0\Content\discardbtn.xnb
+C:\Users\Taylor\Desktop\Gamedev\Monogame\Cribrage\cribrage\bin\Debug\netcoreapp2.0\Content\actionbutton.xnb
+C:\Users\Taylor\Desktop\Gamedev\Monogame\Cribrage\cribrage\bin\Debug\netcoreapp2.0\Content\actionbuttonfont.xnb
+C:\Users\Taylor\Desktop\Gamedev\Monogame\Cribrage\cribrage\bin\Debug\netcoreapp2.0\Content\cribstarsmall.xnb

@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Input;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -67,6 +68,7 @@ namespace cribrage
                mPos.Y >= DrawY &&
                mPos.Y <= DrawY + Height)
             {
+                Mouse.SetCursor(MouseCursor.Hand);
                 return true;
             }
             return false;
