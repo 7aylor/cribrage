@@ -28,15 +28,20 @@ namespace cribrage
 
         public bool IsMouseHovering(Vector2 mPos)
         {
-            if (mPos.X >= DrawX &&
-               mPos.X <= DrawX + Texture.Width &&
-               mPos.Y >= DrawY &&
-               mPos.Y <= DrawY + Texture.Height)
+            if(IsEnabled)
             {
-                Mouse.SetCursor(MouseCursor.Hand);
-                return true;
+                if (mPos.X >= DrawX &&
+                   mPos.X <= DrawX + Texture.Width &&
+                   mPos.Y >= DrawY &&
+                   mPos.Y <= DrawY + Texture.Height)
+                {
+                    Mouse.SetCursor(MouseCursor.Hand);
+                    Color = Color.LightGray;
+                    return true;
+                }
             }
             Mouse.SetCursor(MouseCursor.Arrow);
+            Color = Color.White;
             return false;
         }
     }

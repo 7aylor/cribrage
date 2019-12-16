@@ -36,3 +36,7 @@ C:\Users\Taylor\Desktop\Gamedev\Monogame\Cribrage\CribbageTest\obj\Debug\netcore
 C:\Users\Taylor\Desktop\Gamedev\Monogame\Cribrage\CribbageTest\obj\Debug\netcoreapp2.2\CribbageTest.csproj.CopyComplete
 C:\Users\Taylor\Desktop\Gamedev\Monogame\Cribrage\CribbageTest\obj\Debug\netcoreapp2.2\CribbageTest.dll
 C:\Users\Taylor\Desktop\Gamedev\Monogame\Cribrage\CribbageTest\obj\Debug\netcoreapp2.2\CribbageTest.pdb
+C:\Users\Taylor\Desktop\Gamedev\Monogame\Cribrage\CribbageTest\bin\Debug\netcoreapp2.2\Content\actionbutton.xnb
+C:\Users\Taylor\Desktop\Gamedev\Monogame\Cribrage\CribbageTest\bin\Debug\netcoreapp2.2\Content\actionbuttonfont.xnb
+C:\Users\Taylor\Desktop\Gamedev\Monogame\Cribrage\CribbageTest\bin\Debug\netcoreapp2.2\Content\cardbacksmall.xnb
+C:\Users\Taylor\Desktop\Gamedev\Monogame\Cribrage\CribbageTest\bin\Debug\netcoreapp2.2\Content\cribstarsmall.xnb

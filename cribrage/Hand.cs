@@ -310,6 +310,20 @@ namespace cribrage
             return 0;
         }
 
+        public Card GetCardThatHasntBeenPlayed()
+        {
+            Random rand = new Random();
+
+            Card c;
+
+            do
+            {
+                c = Cards[rand.Next(Cards.Count)];
+            } while (c.WasPlayed);
+
+            return c;
+        }
+
         /// <summary>
         /// Empties the hand of any cards
         /// </summary>

@@ -18,7 +18,7 @@ namespace CribbageTest
         {
             p1 = new Player();
             p2 = new Player();
-            deck = new Deck(CardType.Jack);
+            deck = new Deck(CardType.Jack, 0, 0, 0);
         }
 
         [Test]

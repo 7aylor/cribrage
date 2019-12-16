@@ -12,7 +12,7 @@ namespace Tests
         [SetUp]
         public void Setup()
         {
-            deck = new Deck(CardType.Jack);
+            deck = new Deck(CardType.Jack, 0, 0, 0);
             hand = new Hand();
         }
 

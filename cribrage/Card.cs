@@ -21,9 +21,10 @@ namespace cribrage
         public int SpriteY { get; set; } //position y in the sprite map
         public int DrawX { get; set; }
         public int DrawY { get; set; }
-        public bool CanBePlayed { get; set; } //for pegging
+        public bool WasPlayed { get; set; } //for pegging
         public bool IsCutCard { get; set; } = false;
         public bool IsSelected { get; set; }
+        public int PeggingRound { get; set; }
 
         public static int Width = 40;
         public static int Height = 60;
@@ -66,7 +67,8 @@ namespace cribrage
             if(mPos.X >= DrawX &&
                mPos.X <= DrawX + Width &&
                mPos.Y >= DrawY &&
-               mPos.Y <= DrawY + Height)
+               mPos.Y <= DrawY + Height && 
+               !WasPlayed)
             {
                 Mouse.SetCursor(MouseCursor.Hand);
                 return true;
