@@ -44,8 +44,7 @@ namespace cribrage
                 TurnPlayer.TotalScore += 2;
                 TurnPlayer.Alert = "Thirty One for 2";
                 Console.WriteLine(TurnPlayer.Name + ": Thirty-One for 2");
-                Count = 0;
-                PeggingRound++;
+                EndOfRound();
             }
 
             if(PlayedCards.Count == 7 && Count != 31)
@@ -53,7 +52,7 @@ namespace cribrage
                 TurnPlayer.TotalScore += 1;
                 TurnPlayer.Alert = "Last card for 1";
                 Console.WriteLine(TurnPlayer.Name + ": Last card for 1");
-
+                EndOfRound();
             }
 
             //pairs
@@ -82,7 +81,7 @@ namespace cribrage
                 Console.WriteLine(TurnPlayer.Name + ": Pair for 2");
             }
 
-            //runs
+            //TODO:runs
             if (PlayedCards.Count > 2)
             {
 
@@ -96,42 +95,55 @@ namespace cribrage
 
         public bool CheckPlayerCanPlay(Player p)
         {
-            foreach(Card c in TurnPlayer.Hand.Cards)
+            bool canPlay = false;
+            foreach(Card c in p.Hand.Cards)
             {
                 if(!c.WasPlayed)
                 {
                     if(c.Value + Count <= 31)
                     {
-                        return true;
+                        canPlay =  true;
+                    }
+                    else
+                    {
+                        c.CanBePlayed = false;
                     }
                 }
             }
 
-            return false;
+            return canPlay;
         }
 
-        public void Go()
+        public void Go(Player p)
         {
-            if(CheckPlayerCanPlay(PrevTurnPlayer))
-            {
-                SwapPlayers();
-            }
-            else
-            {
-                PrevTurnPlayer.TotalScore += 1;
-                Console.WriteLine("Go for 1 to " + PrevTurnPlayer.Name);
-                PrevTurnPlayer.Alert = "Go for 1";
-                Count = 0;
-                PeggingRound++;
-            }
-
+            p.TotalScore += 1;
+            Console.WriteLine("Go for 1 to " + p.Name);
+            p.Alert = "Go for 1";
+            EndOfRound();
         }
 
-        private void SwapPlayers()
+        public void SwapPlayers()
         {
             Player temp = PrevTurnPlayer;
             PrevTurnPlayer = TurnPlayer;
             TurnPlayer = temp;
+        }
+
+        public void EndOfRound()
+        {
+            PeggingRound++;
+            Count = 0;
+
+            foreach (Card c in TurnPlayer.Hand.Cards)
+            {
+                if (!c.WasPlayed)
+                    c.CanBePlayed = true;
+            }
+            foreach (Card c in PrevTurnPlayer.Hand.Cards)
+            {
+                if (!c.WasPlayed)
+                    c.CanBePlayed = true;
+            }
         }
 
         public void Reset()
@@ -139,6 +151,7 @@ namespace cribrage
             foreach(Card c in PlayedCards)
             {
                 c.PeggingRound = 0;
+                c.CanBePlayed = true;
                 Count = 0;
             }
 

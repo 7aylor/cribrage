@@ -146,7 +146,7 @@ namespace cribrage
                     HandlePegging();
                     break;
                 case GameState.Counting:
-
+                    HandleCounting();
                     break;
                 case GameState.CountingCrib:
 
@@ -156,8 +156,16 @@ namespace cribrage
                     break;
             }
 
-
             base.Update(gameTime);
+        }
+
+        private void HandleCounting()
+        {
+            Player first = players.FirstOrDefault(p => !p.GetsCrib);
+
+
+
+            
         }
 
         private void HandlePegging()
@@ -210,7 +218,7 @@ namespace cribrage
                         {
                             if (state.LeftButton == ButtonState.Pressed && prevState.LeftButton == ButtonState.Released)
                             {
-                                peggingManager.Go();
+                                peggingManager.Go(p1);
                                 peggingManager.IsGo = false;
                             }
                         }
@@ -221,7 +229,7 @@ namespace cribrage
                     actionButton.IsEnabled = false;
                     if (peggingManager.CheckPlayerCanPlay(p2))
                     {
-                        if(pegDelay > 1)
+                        if(pegDelay > 0.5)
                         {
                             Card playedCard = p2.Hand.GetCardThatHasntBeenPlayed();
                             pegDelay = 0;
@@ -235,6 +243,11 @@ namespace cribrage
                     }
                     else
                     {
+                        if(peggingManager.CheckPlayerCanPlay(p1))
+                        {
+                            peggingManager.SwapPlayers();
+                            return;
+                        }
                         actionButton.Text = "Go";
                         actionButton.IsEnabled = true;
                         peggingManager.IsGo = true;
@@ -243,22 +256,22 @@ namespace cribrage
                         {
                             if (state.LeftButton == ButtonState.Pressed && prevState.LeftButton == ButtonState.Released)
                             {
-                                peggingManager.Go();
+                                peggingManager.Go(p1);
                                 peggingManager.IsGo = false;
-
                             }
                         }
-                        //go
                     }
                 }
             }
             else
             {
-                actionButton.Text = "Score";
-                if(actionButton.IsMouseHovering(state.Position.ToVector2()))
+                actionButton.Text = "Ok";
+                actionButton.IsEnabled = true;
+                if (actionButton.IsMouseHovering(state.Position.ToVector2()))
                 {
                     if(state.LeftButton == ButtonState.Pressed && prevState.LeftButton == ButtonState.Released)
                     {
+                        peggingManager.Reset();
                         gameManager.GoToNextPhase();
                     }
                 }
@@ -315,7 +328,7 @@ namespace cribrage
         {
             MouseState prevState = state;
             state = Mouse.GetState();
-            Mouse.SetCursor(MouseCursor.Arrow);
+            //Mouse.SetCursor(MouseCursor.Arrow);
 
             highlightedCard = null;
 
@@ -329,7 +342,7 @@ namespace cribrage
                 actionButton.IsEnabled = true;
                 if (actionButton.Highlighted)
                 {
-                    Mouse.SetCursor(MouseCursor.Hand);
+                    //Mouse.SetCursor(MouseCursor.Hand);
 
                     if (state.LeftButton == ButtonState.Pressed && prevState.LeftButton == ButtonState.Released)
                     {
@@ -375,7 +388,7 @@ namespace cribrage
                         }
 
                         gameManager.GoToNextPhase();
-                        Mouse.SetCursor(MouseCursor.Arrow);
+                        //Mouse.SetCursor(MouseCursor.Arrow);
                         actionButton.Highlighted = false;
                         actionButton.IsEnabled = false;
 
@@ -396,15 +409,17 @@ namespace cribrage
                     {
                         if (c.IsSelected)
                             c.IsSelected = false;
-                        else if (numSelected < maxNumSelected)
+                        else if (numSelected < maxNumSelected && c.CanBePlayed)
                             c.IsSelected = true;
                     }
                     else
                     {
                         highlightedCard = c;
                     }
+                    return;
                 }
             }
+            highlightedCard = null;
         }
 
         private void UpdatePlayerCardPositions(Player p)
@@ -615,7 +630,7 @@ namespace cribrage
                 if (c.IsSelected)
                     HightlightCard(c, Color.Red, 3);
             }
-            if (highlightedCard != null && !highlightedCard.WasPlayed)
+            if (highlightedCard != null && !highlightedCard.WasPlayed && highlightedCard.CanBePlayed)
             {
                 Color color;
                 if (highlightedCard.IsSelected)
@@ -687,9 +702,12 @@ namespace cribrage
             {
                 if(!card.WasPlayed)
                 {
+                    Color color = Color.White;
+                    if (!card.CanBePlayed)
+                        color = Color.Gray;
                     Rectangle cardRect = new Rectangle(card.SpriteX * Card.Width, card.SpriteY * Card.Height, Card.Width, Card.Height);
                     Rectangle destRect = new Rectangle(card.DrawX, card.DrawY, (int)(cardRect.Width * spriteScalar), (int)(cardRect.Height * spriteScalar));
-                    spriteBatch.Draw(deckTexture, destRect, cardRect, Color.White);
+                    spriteBatch.Draw(deckTexture, destRect, cardRect, color);
                     count++;
                 }
             }

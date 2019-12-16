@@ -22,6 +22,7 @@ namespace cribrage
         public int DrawX { get; set; }
         public int DrawY { get; set; }
         public bool WasPlayed { get; set; } //for pegging
+        public bool CanBePlayed { get; set; } = true; //for pegging
         public bool IsCutCard { get; set; } = false;
         public bool IsSelected { get; set; }
         public int PeggingRound { get; set; }
@@ -68,11 +69,12 @@ namespace cribrage
                mPos.X <= DrawX + Width &&
                mPos.Y >= DrawY &&
                mPos.Y <= DrawY + Height && 
-               !WasPlayed)
+               !WasPlayed && CanBePlayed)
             {
                 Mouse.SetCursor(MouseCursor.Hand);
                 return true;
             }
+            Mouse.SetCursor(MouseCursor.Arrow);
             return false;
         }
     }

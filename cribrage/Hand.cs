@@ -13,6 +13,7 @@ namespace cribrage
         public bool IsCrib { get; set; }
         public int CardDrawPosX { get; set; }
         public int CardDrawPosY { get; set; }
+        public bool HasBeenCounted { get; set; } = false;
 
 
         //sets of unique card combinations in hand
@@ -319,7 +320,7 @@ namespace cribrage
             do
             {
                 c = Cards[rand.Next(Cards.Count)];
-            } while (c.WasPlayed);
+            } while (c.WasPlayed || !c.CanBePlayed);
 
             return c;
         }
