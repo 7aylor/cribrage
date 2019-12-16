@@ -9,6 +9,8 @@ namespace cribrage
         public int Count { get; set; } = 0;
         public int MaxCount { get; set; } = 31;
         public List<Card> PlayedCards { get; set; }
+        public List<Card> PlayedRoundCards { get; set; }
+
         public Player TurnPlayer { get; set; } //The player who has the current turn
         public Player PrevTurnPlayer { get; set; }
         public int DrawX { get; set; }
@@ -47,15 +49,7 @@ namespace cribrage
                 EndOfRound();
             }
 
-            if(PlayedCards.Count == 7 && Count != 31)
-            {
-                TurnPlayer.TotalScore += 1;
-                TurnPlayer.Alert = "Last card for 1";
-                Console.WriteLine(TurnPlayer.Name + ": Last card for 1");
-                EndOfRound();
-            }
-
-            //pairs
+            //TODO: Fix bug where scores happen between rounds (ie I finished a round with an 8 and the next card is an 8 in the following round, that shouldn't give you 2 points)
             if (PlayedCards.Count > 2 && 
                 card.Ordinal == PlayedCards[PlayedCards.Count - 3].Ordinal &&
                 card.Ordinal == PlayedCards[PlayedCards.Count - 2].Ordinal &&
@@ -86,11 +80,20 @@ namespace cribrage
             {
 
             }
-            //if()
 
             Console.WriteLine(TurnPlayer.Name + " played " + card.Name + " - Count: " + Count);
             PlayedCards.Add(card);
+
+            if (PlayedCards.Count == 8 && Count != 31)
+            {
+                TurnPlayer.TotalScore += 1;
+                TurnPlayer.Alert = "Last card for 1";
+                Console.WriteLine(TurnPlayer.Name + ": Last card for 1");
+                EndOfRound();
+            }
             //TODO: Win scenario
+            //if(PrevTurnPlayer.TotalScore > 120)
+
         }
 
         public bool CheckPlayerCanPlay(Player p)
@@ -132,7 +135,9 @@ namespace cribrage
         public void EndOfRound()
         {
             PeggingRound++;
-            Count = 0;
+
+            if(PlayedCards.Count < 8)
+                Count = 0;
 
             foreach (Card c in TurnPlayer.Hand.Cards)
             {
@@ -152,6 +157,7 @@ namespace cribrage
             {
                 c.PeggingRound = 0;
                 c.CanBePlayed = true;
+                c.WasPlayed = false;
                 Count = 0;
             }
 

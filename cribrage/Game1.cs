@@ -64,11 +64,6 @@ namespace cribrage
             players[rng.Next(players.Count)].GetsCrib = true;
             peggingManager.TurnPlayer = players.FirstOrDefault(p => !p.GetsCrib);
 
-            p1.Hand.CardDrawPosX = (graphics.GraphicsDevice.Viewport.Width - ((Card.Width + spaceBetweenCards) * 6)) / 2;
-            p1.Hand.CardDrawPosY = 400;
-            p2.Hand.CardDrawPosX = (graphics.GraphicsDevice.Viewport.Width - ((Card.Width + spaceBetweenCards) * 6)) / 2; ;
-            p2.Hand.CardDrawPosY = 20;
-
             #region testHands
             //deck.Deal(players, 4);
 
@@ -149,7 +144,7 @@ namespace cribrage
                     HandleCounting();
                     break;
                 case GameState.CountingCrib:
-
+                    HandleCountingCrib();
                     break;
                 default:
 
@@ -159,13 +154,83 @@ namespace cribrage
             base.Update(gameTime);
         }
 
+        private void HandleCountingCrib()
+        {
+            MouseState prevState = state;
+            state = Mouse.GetState();
+
+            Player cribPlayer = players.FirstOrDefault(p => p.GetsCrib);
+
+            if(!cribPlayer.Crib.HasBeenCounted)
+            {
+                ClearAlerts();
+                cribPlayer.Crib.GetScore(cut);
+                cribPlayer.TotalScore += cribPlayer.Crib.Score;
+                Console.WriteLine(cribPlayer.Name + " scores " + cribPlayer.Crib.Score + "!");
+                cribPlayer.Alert = cribPlayer.Name + " scores " + cribPlayer.Crib.Score + "!";
+
+                cribPlayer.Crib.HasBeenCounted = true;
+            }
+
+            actionButton.Highlighted = actionButton.IsMouseHovering(state.Position.ToVector2());
+
+            if (actionButton.Highlighted)
+            {
+                if (state.LeftButton == ButtonState.Pressed && prevState.LeftButton == ButtonState.Released)
+                {
+                    gameManager.GoToNextPhase();
+                    p1.Hand.Reset();
+                    p2.Hand.Reset();
+                    cribPlayer.Crib.Reset();
+                    deck.Shuffle();
+                    cut = null;
+                    ClearAlerts();
+                }
+            }
+        }
+
         private void HandleCounting()
         {
+            MouseState prevState = state;
+            state = Mouse.GetState();
+
             Player first = players.FirstOrDefault(p => !p.GetsCrib);
+            Player second = players.FirstOrDefault(p => p.GetsCrib);
 
+            if(!first.Hand.HasBeenCounted)
+            {
+                first.Hand.GetScore(cut);
+                first.TotalScore += first.Hand.Score;
 
+                Console.WriteLine(first.Name + " scores " + first.Hand.Score + "!");
+                first.Alert = first.Name + " scores " + first.Hand.Score + "!";
 
-            
+                first.Hand.HasBeenCounted = true;
+            }
+
+            if (!second.Hand.HasBeenCounted)
+            {
+                second.Hand.GetScore(cut);
+                second.TotalScore += second.Hand.Score;
+
+                Console.WriteLine(second.Name + " scores " + second.Hand.Score + "!");
+                second.Alert = second.Name + " scores " + second.Hand.Score + "!";
+
+                second.Hand.HasBeenCounted = true;
+            }
+
+            actionButton.Highlighted = actionButton.IsMouseHovering(state.Position.ToVector2());
+
+            if (actionButton.Highlighted)
+            {
+                if (state.LeftButton == ButtonState.Pressed && prevState.LeftButton == ButtonState.Released)
+                {
+                    gameManager.GoToNextPhase();
+                    second.Hand.HasBeenCounted = false;
+                    first.Hand.HasBeenCounted = false;
+                    UpdateCribCardPositions(second);
+                }
+            }
         }
 
         private void HandlePegging()
@@ -273,6 +338,8 @@ namespace cribrage
                     {
                         peggingManager.Reset();
                         gameManager.GoToNextPhase();
+                        UpdatePlayerCardPositions(p2);
+                        actionButton.IsEnabled = true;
                     }
                 }
             }
@@ -427,8 +494,20 @@ namespace cribrage
             for (int i = 0; i < p.Hand.Cards.Count; i++)
             {
                 Card c = p.Hand.Cards[i];
-                c.DrawX = c.DrawX = p.Hand.CardDrawPosX +
+                c.DrawX = p.Hand.CardDrawPosX +
                 ((Card.Width + spaceBetweenCards) * i);
+            }
+        }
+
+        private void UpdateCribCardPositions(Player p)
+        {
+            for (int i = 0; i < 4; i++)
+            {
+                Card handCard = p.Hand.Cards[i];
+                Card cribCard = p.Crib.Cards[i];
+
+                cribCard.DrawX = handCard.DrawX;
+                cribCard.DrawY = handCard.DrawY;
             }
         }
 
@@ -468,6 +547,9 @@ namespace cribrage
                         {
                             deck.IsDealing = false;
                             gameManager.GoToNextPhase();
+                            //UpdatePlayerCardPositions(p1);
+                            //UpdatePlayerCardPositions(p2);
+
                         }
                     }
                     else
@@ -479,6 +561,10 @@ namespace cribrage
             }
             else
             {
+                p1.Hand.CardDrawPosX = (graphics.GraphicsDevice.Viewport.Width - ((Card.Width + spaceBetweenCards) * 6)) / 2;
+                p1.Hand.CardDrawPosY = 400;
+                p2.Hand.CardDrawPosX = (graphics.GraphicsDevice.Viewport.Width - ((Card.Width + spaceBetweenCards) * 6)) / 2; ;
+                p2.Hand.CardDrawPosY = 20;
                 actionButton.IsEnabled = true;
                 MouseState prevState = state;
                 state = Mouse.GetState();
@@ -515,8 +601,8 @@ namespace cribrage
             DrawPlayerNames(p1);
             DrawPlayerNames(p2);
             spriteBatch.DrawString(defaultFont, "Phase: " + gameManager.State.ToString(), new Vector2(2, 2), Color.White);
-            DrawPlayerHand(p1);
-            DrawPlayerHandHidden(p2);
+            if(gameManager.State != GameState.CountingCrib)
+                DrawPlayerHand(p1);
             DrawPlayerAlert(p1);
             DrawPlayerAlert(p2);
 
@@ -531,39 +617,59 @@ namespace cribrage
             {
                 case GameState.Deal:
                     actionButton.Text = "Deal";
+                    DrawPlayerHandHidden(p2);
                     if (!deck.IsDealing)
                         DrawActionButton();
                     break;
                 case GameState.Discard:
+                    DrawPlayerHandHidden(p2);
                     actionButton.Text = "Discard";
                     HandleDiscardDraw();
                     break;
                 case GameState.Cut:
+                    DrawPlayerHandHidden(p2);
                     actionButton.Text = "Cut";
                     if(!p1.GetsCrib)
                         DrawActionButton();
                     break;
                 case GameState.Pegging:
+                    DrawPlayerHandHidden(p2);
                     HandlePeggingDraw();
                     break;
                 case GameState.Counting:
-
+                    DrawPlayerHand(p2);
+                    DrawActionButton();
                     break;
                 case GameState.CountingCrib:
-
+                    DrawCrib(players.FirstOrDefault(p => p.GetsCrib));
+                    DrawActionButton();
                     break;
                 default:
 
                     break;
             }
 
-            //DrawPlayerScore(p1);
-            //DrawPlayerScore(p2);
-
-
             spriteBatch.End();
 
             base.Draw(gameTime);
+        }
+
+        private void DrawCrib(Player player)
+        {
+            int count = 0;
+            foreach (Card card in player.Crib.Cards)
+            {
+                if (!card.WasPlayed)
+                {
+                    Color color = Color.White;
+                    if (!card.CanBePlayed)
+                        color = Color.Gray;
+                    Rectangle cardRect = new Rectangle(card.SpriteX * Card.Width, card.SpriteY * Card.Height, Card.Width, Card.Height);
+                    Rectangle destRect = new Rectangle(card.DrawX, card.DrawY, (int)(cardRect.Width * spriteScalar), (int)(cardRect.Height * spriteScalar));
+                    spriteBatch.Draw(deckTexture, destRect, cardRect, color);
+                    count++;
+                }
+            }
         }
 
         private void HandlePeggingDraw()
