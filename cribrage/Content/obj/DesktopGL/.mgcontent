@@ -4,17 +4,19 @@
   <Platform>DesktopGL</Platform>
   <Config />
   <SourceFiles>
-    <File>C:/Users/Taylor/Desktop/Gamedev/Monogame/Cribrage/cribrage/Content/actionbutton.png</File>
-    <File>C:/Users/Taylor/Desktop/Gamedev/Monogame/Cribrage/cribrage/Content/actionbutton.spritefont</File>
-    <File>C:/Users/Taylor/Desktop/Gamedev/Monogame/Cribrage/cribrage/Content/CardBackSmall.png</File>
-    <File>C:/Users/Taylor/Desktop/Gamedev/Monogame/Cribrage/cribrage/Content/cribstarsmall.png</File>
-    <File>C:/Users/Taylor/Desktop/Gamedev/Monogame/Cribrage/cribrage/Content/default.spritefont</File>
-    <File>C:/Users/Taylor/Desktop/Gamedev/Monogame/Cribrage/cribrage/Content/plain deck.png</File>
-    <File>C:/Users/Taylor/Desktop/Gamedev/Monogame/Cribrage/cribrage/Content/smallcards.gif</File>
+    <File>C:/Users/7aylor/Desktop/gamdev/Monogame/Cribrage/cribrage/Content/actionbutton.png</File>
+    <File>C:/Users/7aylor/Desktop/gamdev/Monogame/Cribrage/cribrage/Content/actionbutton.spritefont</File>
+    <File>C:/Users/7aylor/Desktop/gamdev/Monogame/Cribrage/cribrage/Content/arrowsmall.png</File>
+    <File>C:/Users/7aylor/Desktop/gamdev/Monogame/Cribrage/cribrage/Content/CardBackSmall.png</File>
+    <File>C:/Users/7aylor/Desktop/gamdev/Monogame/Cribrage/cribrage/Content/cribstarsmall.png</File>
+    <File>C:/Users/7aylor/Desktop/gamdev/Monogame/Cribrage/cribrage/Content/default.spritefont</File>
+    <File>C:/Users/7aylor/Desktop/gamdev/Monogame/Cribrage/cribrage/Content/plain deck.png</File>
+    <File>C:/Users/7aylor/Desktop/gamdev/Monogame/Cribrage/cribrage/Content/smallcards.gif</File>
   </SourceFiles>
   <DestFiles>
     <File xsi:nil="true" />
     <File>actionbuttonfont.spritefont</File>
+    <File xsi:nil="true" />
     <File>cardbacksmall.png</File>
     <File xsi:nil="true" />
     <File xsi:nil="true" />

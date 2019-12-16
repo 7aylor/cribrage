@@ -40,3 +40,9 @@ C:\Users\Taylor\Desktop\Gamedev\Monogame\Cribrage\CribbageTest\bin\Debug\netcore
 C:\Users\Taylor\Desktop\Gamedev\Monogame\Cribrage\CribbageTest\bin\Debug\netcoreapp2.2\Content\actionbuttonfont.xnb
 C:\Users\Taylor\Desktop\Gamedev\Monogame\Cribrage\CribbageTest\bin\Debug\netcoreapp2.2\Content\cardbacksmall.xnb
 C:\Users\Taylor\Desktop\Gamedev\Monogame\Cribrage\CribbageTest\bin\Debug\netcoreapp2.2\Content\cribstarsmall.xnb
+C:\Users\7aylor\Desktop\gamdev\Monogame\Cribrage\CribbageTest\bin\Debug\netcoreapp2.2\Content\actionbutton.xnb
+C:\Users\7aylor\Desktop\gamdev\Monogame\Cribrage\CribbageTest\bin\Debug\netcoreapp2.2\Content\actionbuttonfont.xnb
+C:\Users\7aylor\Desktop\gamdev\Monogame\Cribrage\CribbageTest\bin\Debug\netcoreapp2.2\Content\arrowsmall.xnb
+C:\Users\7aylor\Desktop\gamdev\Monogame\Cribrage\CribbageTest\bin\Debug\netcoreapp2.2\Content\cardbacksmall.xnb
+C:\Users\7aylor\Desktop\gamdev\Monogame\Cribrage\CribbageTest\bin\Debug\netcoreapp2.2\Content\cribstarsmall.xnb
+C:\Users\7aylor\Desktop\gamdev\Monogame\Cribrage\CribbageTest\bin\Debug\netcoreapp2.2\Content\default.xnb

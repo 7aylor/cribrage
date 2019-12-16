@@ -38,7 +38,7 @@ namespace cribrage
         Texture2D pixel;
         Texture2D actionButtonTexture;
         Texture2D cribStarTexture;
-
+        Texture2D arrowTexture;
 
         public Game1()
         {
@@ -88,6 +88,7 @@ namespace cribrage
             backOfCardTexture = Content.Load<Texture2D>("cardbacksmall");
             actionButtonTexture = Content.Load<Texture2D>("actionbutton");
             cribStarTexture = Content.Load<Texture2D>("cribstarsmall");
+            arrowTexture = Content.Load<Texture2D>("arrowsmall");
             defaultFont = Content.Load<SpriteFont>("default");
             actionButtonFont = Content.Load<SpriteFont>("actionbuttonfont");
 
@@ -166,8 +167,8 @@ namespace cribrage
                 ClearAlerts();
                 cribPlayer.Crib.GetScore(cut);
                 cribPlayer.TotalScore += cribPlayer.Crib.Score;
-                Console.WriteLine(cribPlayer.Name + " scores " + cribPlayer.Crib.Score + "!");
-                cribPlayer.Alert = cribPlayer.Name + " scores " + cribPlayer.Crib.Score + "!";
+                Console.WriteLine(cribPlayer.Name + "'s crib scores " + cribPlayer.Crib.Score);
+                cribPlayer.Alert = cribPlayer.Name + "'s crib scores " + cribPlayer.Crib.Score;
 
                 cribPlayer.Crib.HasBeenCounted = true;
             }
@@ -181,6 +182,8 @@ namespace cribrage
                     gameManager.GoToNextPhase();
                     p1.Hand.Reset();
                     p2.Hand.Reset();
+                    p1.GetsCrib = !p1.GetsCrib;
+                    p2.GetsCrib = !p2.GetsCrib;
                     cribPlayer.Crib.Reset();
                     deck.Shuffle();
                     cut = null;
@@ -202,8 +205,8 @@ namespace cribrage
                 first.Hand.GetScore(cut);
                 first.TotalScore += first.Hand.Score;
 
-                Console.WriteLine(first.Name + " scores " + first.Hand.Score + "!");
-                first.Alert = first.Name + " scores " + first.Hand.Score + "!";
+                Console.WriteLine(first.Name + "'s hand scores " + first.Hand.Score);
+                first.Alert = first.Name + "'s hand scores " + first.Hand.Score;
 
                 first.Hand.HasBeenCounted = true;
             }
@@ -213,8 +216,8 @@ namespace cribrage
                 second.Hand.GetScore(cut);
                 second.TotalScore += second.Hand.Score;
 
-                Console.WriteLine(second.Name + " scores " + second.Hand.Score + "!");
-                second.Alert = second.Name + " scores " + second.Hand.Score + "!";
+                Console.WriteLine(second.Name + "'s hand scores " + second.Hand.Score);
+                second.Alert = second.Name + "'s hand scores " + second.Hand.Score;
 
                 second.Hand.HasBeenCounted = true;
             }
@@ -634,6 +637,8 @@ namespace cribrage
                     break;
                 case GameState.Pegging:
                     DrawPlayerHandHidden(p2);
+                    if(peggingManager.PlayedCards.Count < 8)
+                        DrawTurnArrow();
                     HandlePeggingDraw();
                     break;
                 case GameState.Counting:
@@ -674,7 +679,7 @@ namespace cribrage
 
         private void HandlePeggingDraw()
         {
-            peggingManager.TurnPlayer.Alert = peggingManager.TurnPlayer.Name + "'s turn";
+            //peggingManager.TurnPlayer.Alert = peggingManager.TurnPlayer.Name + "'s turn";
             HandleHightlightDraw();
 
             //if (p1.Hand.Cards.Where(x => x.IsSelected).Count() == 1 || peggingManager.PlayedCards.Count == 8 || peggingManager.IsGo)
@@ -842,6 +847,12 @@ namespace cribrage
         {
             Vector2 pos = new Vector2(((int)graphics.GraphicsDevice.Viewport.Width - defaultFont.MeasureString(p.Alert).X) / 2, p.AlertY);
             spriteBatch.DrawString(defaultFont, p.Alert, pos, Color.White);
+        }
+
+        private void DrawTurnArrow()
+        {
+            Vector2 pos = new Vector2(peggingManager.TurnPlayer.Hand.CardDrawPosX - 20, peggingManager.TurnPlayer.Hand.CardDrawPosY + 16);
+            spriteBatch.Draw(arrowTexture, pos, Color.White);
         }
 
         private void ClearAlerts()

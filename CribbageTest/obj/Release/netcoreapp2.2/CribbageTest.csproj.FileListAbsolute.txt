@@ -1,0 +1,25 @@
+C:\Users\7aylor\Desktop\gamdev\Monogame\Cribrage\CribbageTest\bin\Release\netcoreapp2.2\Content\actionbutton.xnb
+C:\Users\7aylor\Desktop\gamdev\Monogame\Cribrage\CribbageTest\bin\Release\netcoreapp2.2\Content\actionbuttonfont.xnb
+C:\Users\7aylor\Desktop\gamdev\Monogame\Cribrage\CribbageTest\bin\Release\netcoreapp2.2\Content\arrowsmall.xnb
+C:\Users\7aylor\Desktop\gamdev\Monogame\Cribrage\CribbageTest\bin\Release\netcoreapp2.2\Content\cardbacksmall.xnb
+C:\Users\7aylor\Desktop\gamdev\Monogame\Cribrage\CribbageTest\bin\Release\netcoreapp2.2\Content\cribstarsmall.xnb
+C:\Users\7aylor\Desktop\gamdev\Monogame\Cribrage\CribbageTest\bin\Release\netcoreapp2.2\Content\default.xnb
+C:\Users\7aylor\Desktop\gamdev\Monogame\Cribrage\CribbageTest\bin\Release\netcoreapp2.2\Content\plain deck.xnb
+C:\Users\7aylor\Desktop\gamdev\Monogame\Cribrage\CribbageTest\bin\Release\netcoreapp2.2\Content\smallcards.xnb
+C:\Users\7aylor\Desktop\gamdev\Monogame\Cribrage\CribbageTest\bin\Release\netcoreapp2.2\NUnit3.TestAdapter.dll
+C:\Users\7aylor\Desktop\gamdev\Monogame\Cribrage\CribbageTest\bin\Release\netcoreapp2.2\NUnit3.TestAdapter.pdb
+C:\Users\7aylor\Desktop\gamdev\Monogame\Cribrage\CribbageTest\bin\Release\netcoreapp2.2\nunit.engine.netstandard.dll
+C:\Users\7aylor\Desktop\gamdev\Monogame\Cribrage\CribbageTest\bin\Release\netcoreapp2.2\CribbageTest.deps.json
+C:\Users\7aylor\Desktop\gamdev\Monogame\Cribrage\CribbageTest\bin\Release\netcoreapp2.2\CribbageTest.runtimeconfig.json
+C:\Users\7aylor\Desktop\gamdev\Monogame\Cribrage\CribbageTest\bin\Release\netcoreapp2.2\CribbageTest.runtimeconfig.dev.json
+C:\Users\7aylor\Desktop\gamdev\Monogame\Cribrage\CribbageTest\bin\Release\netcoreapp2.2\CribbageTest.dll
+C:\Users\7aylor\Desktop\gamdev\Monogame\Cribrage\CribbageTest\bin\Release\netcoreapp2.2\CribbageTest.pdb
+C:\Users\7aylor\Desktop\gamdev\Monogame\Cribrage\CribbageTest\bin\Release\netcoreapp2.2\cribrage.dll
+C:\Users\7aylor\Desktop\gamdev\Monogame\Cribrage\CribbageTest\bin\Release\netcoreapp2.2\cribrage.pdb
+C:\Users\7aylor\Desktop\gamdev\Monogame\Cribrage\CribbageTest\obj\Release\netcoreapp2.2\CribbageTest.csprojAssemblyReference.cache
+C:\Users\7aylor\Desktop\gamdev\Monogame\Cribrage\CribbageTest\obj\Release\netcoreapp2.2\CribbageTest.csproj.CoreCompileInputs.cache
+C:\Users\7aylor\Desktop\gamdev\Monogame\Cribrage\CribbageTest\obj\Release\netcoreapp2.2\CribbageTest.AssemblyInfoInputs.cache
+C:\Users\7aylor\Desktop\gamdev\Monogame\Cribrage\CribbageTest\obj\Release\netcoreapp2.2\CribbageTest.AssemblyInfo.cs
+C:\Users\7aylor\Desktop\gamdev\Monogame\Cribrage\CribbageTest\obj\Release\netcoreapp2.2\CribbageTest.csproj.CopyComplete
+C:\Users\7aylor\Desktop\gamdev\Monogame\Cribrage\CribbageTest\obj\Release\netcoreapp2.2\CribbageTest.dll
+C:\Users\7aylor\Desktop\gamdev\Monogame\Cribrage\CribbageTest\obj\Release\netcoreapp2.2\CribbageTest.pdb

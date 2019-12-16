@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PipelineBuildEvent xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-  <SourceFile>C:/Users/Taylor/Desktop/Gamedev/Monogame/Cribrage/cribrage/Content/plain deck.png</SourceFile>
-  <SourceTime>2019-11-16T15:36:02.1690612-08:00</SourceTime>
-  <DestFile>C:/Users/Taylor/Desktop/Gamedev/Monogame/Cribrage/cribrage/Content/bin/DesktopGL/plain deck.xnb</DestFile>
-  <DestTime>2019-12-15T08:50:57.7721126-08:00</DestTime>
+  <SourceFile>C:/Users/7aylor/Desktop/gamdev/Monogame/Cribrage/cribrage/Content/plain deck.png</SourceFile>
+  <SourceTime>2019-12-10T19:43:44.43787-08:00</SourceTime>
+  <DestFile>C:/Users/7aylor/Desktop/gamdev/Monogame/Cribrage/cribrage/Content/bin/DesktopGL/plain deck.xnb</DestFile>
+  <DestTime>2019-12-15T22:04:18.4731691-08:00</DestTime>
   <Importer>TextureImporter</Importer>
   <ImporterTime>2018-12-08T08:35:54-08:00</ImporterTime>
   <Processor>TextureProcessor</Processor>
