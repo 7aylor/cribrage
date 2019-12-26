@@ -1,5 +1,3 @@
-C:\Users\7aylor\Desktop\gamdev\Monogame\Cribrage\CribbageTest\bin\Debug\netcoreapp2.2\Content\plain deck.xnb
-C:\Users\7aylor\Desktop\gamdev\Monogame\Cribrage\CribbageTest\bin\Debug\netcoreapp2.2\Content\smallcards.xnb
 C:\Users\7aylor\Desktop\gamdev\Monogame\Cribrage\CribbageTest\bin\Debug\netcoreapp2.2\NUnit3.TestAdapter.dll
 C:\Users\7aylor\Desktop\gamdev\Monogame\Cribrage\CribbageTest\bin\Debug\netcoreapp2.2\NUnit3.TestAdapter.pdb
 C:\Users\7aylor\Desktop\gamdev\Monogame\Cribrage\CribbageTest\bin\Debug\netcoreapp2.2\nunit.engine.netstandard.dll
@@ -8,7 +6,6 @@ C:\Users\7aylor\Desktop\gamdev\Monogame\Cribrage\CribbageTest\bin\Debug\netcorea
 C:\Users\7aylor\Desktop\gamdev\Monogame\Cribrage\CribbageTest\bin\Debug\netcoreapp2.2\CribbageTest.runtimeconfig.dev.json
 C:\Users\7aylor\Desktop\gamdev\Monogame\Cribrage\CribbageTest\bin\Debug\netcoreapp2.2\CribbageTest.dll
 C:\Users\7aylor\Desktop\gamdev\Monogame\Cribrage\CribbageTest\bin\Debug\netcoreapp2.2\CribbageTest.pdb
-C:\Users\7aylor\Desktop\gamdev\Monogame\Cribrage\CribbageTest\bin\Debug\netcoreapp2.2\cribrage.dll
 C:\Users\7aylor\Desktop\gamdev\Monogame\Cribrage\CribbageTest\bin\Debug\netcoreapp2.2\cribrage.pdb
 C:\Users\7aylor\Desktop\gamdev\Monogame\Cribrage\CribbageTest\obj\Debug\netcoreapp2.2\CribbageTest.csprojAssemblyReference.cache
 C:\Users\7aylor\Desktop\gamdev\Monogame\Cribrage\CribbageTest\obj\Debug\netcoreapp2.2\CribbageTest.csproj.CoreCompileInputs.cache
@@ -40,9 +37,20 @@ C:\Users\Taylor\Desktop\Gamedev\Monogame\Cribrage\CribbageTest\bin\Debug\netcore
 C:\Users\Taylor\Desktop\Gamedev\Monogame\Cribrage\CribbageTest\bin\Debug\netcoreapp2.2\Content\actionbuttonfont.xnb
 C:\Users\Taylor\Desktop\Gamedev\Monogame\Cribrage\CribbageTest\bin\Debug\netcoreapp2.2\Content\cardbacksmall.xnb
 C:\Users\Taylor\Desktop\Gamedev\Monogame\Cribrage\CribbageTest\bin\Debug\netcoreapp2.2\Content\cribstarsmall.xnb
-C:\Users\7aylor\Desktop\gamdev\Monogame\Cribrage\CribbageTest\bin\Debug\netcoreapp2.2\Content\actionbutton.xnb
-C:\Users\7aylor\Desktop\gamdev\Monogame\Cribrage\CribbageTest\bin\Debug\netcoreapp2.2\Content\actionbuttonfont.xnb
-C:\Users\7aylor\Desktop\gamdev\Monogame\Cribrage\CribbageTest\bin\Debug\netcoreapp2.2\Content\arrowsmall.xnb
-C:\Users\7aylor\Desktop\gamdev\Monogame\Cribrage\CribbageTest\bin\Debug\netcoreapp2.2\Content\cardbacksmall.xnb
-C:\Users\7aylor\Desktop\gamdev\Monogame\Cribrage\CribbageTest\bin\Debug\netcoreapp2.2\Content\cribstarsmall.xnb
-C:\Users\7aylor\Desktop\gamdev\Monogame\Cribrage\CribbageTest\bin\Debug\netcoreapp2.2\Content\default.xnb
+C:\Users\7aylor\Desktop\gamdev\Monogame\Cribrage\CribbageTest\bin\Debug\netcoreapp2.2\cribrage.exe
+C:\Users\7aylor\Desktop\gamdev\Monogame\Cribrage\CribbageTest\bin\Debug\netcoreapp2.2\MonoGame.Framework.dll
+C:\Users\7aylor\Desktop\gamdev\Monogame\Cribrage\CribbageTest\bin\Debug\netcoreapp2.2\SharpDX.MediaFoundation.dll
+C:\Users\7aylor\Desktop\gamdev\Monogame\Cribrage\CribbageTest\bin\Debug\netcoreapp2.2\SharpDX.dll
+C:\Users\7aylor\Desktop\gamdev\Monogame\Cribrage\CribbageTest\bin\Debug\netcoreapp2.2\SharpDX.XAudio2.dll
+C:\Users\7aylor\Desktop\gamdev\Monogame\Cribrage\CribbageTest\bin\Debug\netcoreapp2.2\SharpDX.DXGI.dll
+C:\Users\7aylor\Desktop\gamdev\Monogame\Cribrage\CribbageTest\bin\Debug\netcoreapp2.2\SharpDX.Direct3D11.dll
+C:\Users\7aylor\Desktop\gamdev\Monogame\Cribrage\CribbageTest\bin\Debug\netcoreapp2.2\SharpDX.Direct2D1.dll
+C:\Users\7aylor\Desktop\gamdev\Monogame\Cribrage\CribbageTest\bin\Debug\netcoreapp2.2\SharpDX.XInput.dll
+C:\Users\7aylor\Desktop\gamdev\Monogame\Cribrage\CribbageTest\bin\Debug\netcoreapp2.2\MonoGame.Framework.xml
+C:\Users\7aylor\Desktop\gamdev\Monogame\Cribrage\CribbageTest\bin\Debug\netcoreapp2.2\SharpDX.MediaFoundation.xml
+C:\Users\7aylor\Desktop\gamdev\Monogame\Cribrage\CribbageTest\bin\Debug\netcoreapp2.2\SharpDX.xml
+C:\Users\7aylor\Desktop\gamdev\Monogame\Cribrage\CribbageTest\bin\Debug\netcoreapp2.2\SharpDX.XAudio2.xml
+C:\Users\7aylor\Desktop\gamdev\Monogame\Cribrage\CribbageTest\bin\Debug\netcoreapp2.2\SharpDX.DXGI.xml
+C:\Users\7aylor\Desktop\gamdev\Monogame\Cribrage\CribbageTest\bin\Debug\netcoreapp2.2\SharpDX.Direct3D11.xml
+C:\Users\7aylor\Desktop\gamdev\Monogame\Cribrage\CribbageTest\bin\Debug\netcoreapp2.2\SharpDX.Direct2D1.xml
+C:\Users\7aylor\Desktop\gamdev\Monogame\Cribrage\CribbageTest\bin\Debug\netcoreapp2.2\SharpDX.XInput.xml

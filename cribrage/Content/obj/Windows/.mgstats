@@ -1,1 +1,12 @@
 Source File,Dest File,Processor Type,Content Type,Source File Size,Dest File Size,Build Seconds
+"C:/Users/7aylor/Desktop/cribrage/cribrage/Content/actionbutton.png","C:/Users/7aylor/Desktop/cribrage/cribrage/Content/bin/Windows/actionbutton.xnb","TextureProcessor","Texture2DContent",247,20085,0.2988259
+"C:/Users/7aylor/Desktop/cribrage/cribrage/Content/actionbutton.spritefont","C:/Users/7aylor/Desktop/cribrage/cribrage/Content/bin/Windows/actionbuttonfont.xnb","FontDescriptionProcessor","SpriteFontContent",2065,37905,0.2810689
+"C:/Users/7aylor/Desktop/cribrage/cribrage/Content/arrow.png","C:/Users/7aylor/Desktop/cribrage/cribrage/Content/bin/Windows/arrow.xnb","TextureProcessor","Texture2DContent",4561,917257,0.0600057
+"C:/Users/7aylor/Desktop/cribrage/cribrage/Content/arrowsmall.png","C:/Users/7aylor/Desktop/cribrage/cribrage/Content/bin/Windows/arrowsmall.xnb","TextureProcessor","Texture2DContent",538,2133,0.0103181
+"C:/Users/7aylor/Desktop/cribrage/cribrage/Content/cardback.png","C:/Users/7aylor/Desktop/cribrage/cribrage/Content/bin/Windows/cardback.xnb","TextureProcessor","Texture2DContent",57216,772181,0.0397146
+"C:/Users/7aylor/Desktop/cribrage/cribrage/Content/cardbacksmall.png","C:/Users/7aylor/Desktop/cribrage/cribrage/Content/bin/Windows/cardbacksmall.xnb","TextureProcessor","Texture2DContent",2962,9685,0.0152531
+"C:/Users/7aylor/Desktop/cribrage/cribrage/Content/cribstar.png","C:/Users/7aylor/Desktop/cribrage/cribrage/Content/bin/Windows/cribstar.xnb","TextureProcessor","Texture2DContent",144085,15320085,0.4840468
+"C:/Users/7aylor/Desktop/cribrage/cribrage/Content/cribstarsmall.png","C:/Users/7aylor/Desktop/cribrage/cribrage/Content/bin/Windows/cribstarsmall.xnb","TextureProcessor","Texture2DContent",3202,16469,0.0348475
+"C:/Users/7aylor/Desktop/cribrage/cribrage/Content/default.spritefont","C:/Users/7aylor/Desktop/cribrage/cribrage/Content/bin/Windows/default.xnb","FontDescriptionProcessor","SpriteFontContent",2068,21521,0.055568
+"C:/Users/7aylor/Desktop/cribrage/cribrage/Content/File.spritefont","C:/Users/7aylor/Desktop/cribrage/cribrage/Content/bin/Windows/File.xnb","FontDescriptionProcessor","SpriteFontContent",2068,21521,0.0373448
+"C:/Users/7aylor/Desktop/cribrage/cribrage/Content/smallcards.gif","C:/Users/7aylor/Desktop/cribrage/cribrage/Content/bin/Windows/smallcards.xnb","TextureProcessor","Texture2DContent",9143,499285,0.0365693
